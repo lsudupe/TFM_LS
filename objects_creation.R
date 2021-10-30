@@ -107,7 +107,7 @@ sp.day7.2[['day7.2.slice']] <- img.day7.2
 saveRDS(sp.sham,"./objects/initial/sham.sp.rds")
 saveRDS(sp.day1.1,"./objects/initial/day1.1.sp.rds")
 saveRDS(sp.day1.2,"./objects/initial/day1.2.sp.rds")
-saveRDS(sp.day7.1,"./objects/initial/day7.2.sp.rds")
+saveRDS(sp.day7.1,"./objects/initial/day7.1.sp.rds")
 saveRDS(sp.day7.2,"./objects/initial/day7.2.sp.rds")
 
 
