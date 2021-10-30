@@ -78,3 +78,22 @@ sp.combined@meta.data %>%
   theme_classic() +
   geom_vline(xintercept = 0.2)
 dev.off()
+# Visualize the overall complexity of the gene expression by visualizing the genes detected per UMI
+sp.combined@meta.data %>% 
+  ggplot(aes(x=log10GenesPerUMI, color = sample, fill=sample)) +
+  geom_density(alpha = 0.2) +
+  theme_classic() +
+  geom_vline(xintercept = 0.8)
+#QUE ES ESTO
+
+png(file.path("./results/QC",filename = "nCount violin.png"))
+VlnPlot(sp.combined, features = c("nCount_Spatial"),group.by = "sample", pt.size = 0.1, ncol = 2) + NoLegend()
+dev.off()
+png(file.path("./results/QC",filename = "nFeature violin.png"))
+VlnPlot(sp.combined, features = c("nFeature_Spatial"),group.by = "sample",pt.size = 0.1, ncol = 2) + NoLegend()
+dev.off()
+png(file.path("./results/QC",filename = "mito violin.png"))
+VlnPlot(sp.combined, features = c("percent_mito"),group.by = "sample", pt.size = 0.1, ncol = 2) + NoLegend()
+dev.off()
+
+
