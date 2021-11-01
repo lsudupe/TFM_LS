@@ -96,4 +96,55 @@ png(file.path("./results/QC",filename = "mito violin.png"))
 VlnPlot(sp.combined, features = c("percent_mito"),group.by = "sample", pt.size = 0.1, ncol = 2) + NoLegend()
 dev.off()
 
+##change sample column
+sham@meta.data$sample <- "sham"
+day1.1@meta.data$sample <- "day1"
+day7.1@meta.data$sample <- "day7"
+
+##merge them
+sp.combined <- merge(sham, y = c(day1.1, day7.1), 
+                     add.cell.ids = c("sham","day1", "day7"), project = "Tokio")
+##brief filter and save the selected
+saveRDS(sham, file = "./objects/processed/sham.rds")
+saveRDS(day1.1, file = "./objects/processed/day1.rds")
+saveRDS(day7.1, file = "./objects/processed/day7.rds")
+saveRDS(sp.combined, file = "./objects/processed/sp.combined.rds")
+
+
+##############SPATIAL QC
+pdf(file.path("./results/QC",filename = "mito violin.pdf"))
+SpatialPlot(object = sp.combined, 
+            features = c("percent_mito"), 
+            image.alpha = 0.6,
+            pt.size.factor = 80,
+            min.cutoff = 0,
+            max.cutoff = 100,
+            repel = TRUE)
+dev.off()
+
+pdf(file.path("./results/QC",filename = "nfeature_combined.pdf"))
+SpatialPlot(object = sp.combined, 
+            features = c("nFeature_Spatial"), 
+            image.alpha = 0.6,
+            pt.size.factor = 80,
+            min.cutoff = 1000,
+            max.cutoff = 8000,
+            repel = TRUE)
+dev.off()
+
+pdf(file.path("./results/QC",filename = "nCount_combined.pdf"))
+SpatialPlot(object = sp.combined, 
+            features = c("nCount_Spatial"),
+            image.alpha = 0.6,
+            pt.size.factor = 80,
+            min.cutoff = 5000,
+            max.cutoff = 80000,
+            repel = TRUE)
+dev.off()
+
+
+
+
+
+
 
