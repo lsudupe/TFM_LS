@@ -115,7 +115,7 @@ saveRDS(sp.combined, file = "./objects/processed/sp.combined.rds")
 pdf(file.path("./results/QC",filename = "mito violin.pdf"))
 SpatialPlot(object = sp.combined, 
             features = c("percent_mito"), 
-            image.alpha = 0.6,
+            alpha = 0.6,
             pt.size.factor = 80,
             min.cutoff = 0,
             max.cutoff = 100,
@@ -125,7 +125,7 @@ dev.off()
 pdf(file.path("./results/QC",filename = "nfeature_combined.pdf"))
 SpatialPlot(object = sp.combined, 
             features = c("nFeature_Spatial"), 
-            image.alpha = 0.6,
+            alpha = 0.6,
             pt.size.factor = 80,
             min.cutoff = 1000,
             max.cutoff = 8000,
@@ -135,7 +135,7 @@ dev.off()
 pdf(file.path("./results/QC",filename = "nCount_combined.pdf"))
 SpatialPlot(object = sp.combined, 
             features = c("nCount_Spatial"),
-            image.alpha = 0.6,
+            alpha = 0.6,
             pt.size.factor = 80,
             min.cutoff = 5000,
             max.cutoff = 80000,
