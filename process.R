@@ -18,4 +18,20 @@ sc.combined.sct <- SCTransform(combined, assay = "Spatial",verbose = FALSE) %>%
   FindNeighbors(reduction = "pca", dims = 1:30) %>%
   FindClusters(resolution = 0.4)
 
-saveRDS(combined, "./objects/processed/sp.combined.sct.rds")
+saveRDS(sc.combined.sct, "./objects/processed/sp.combined.sct.rds")
+
+
+###Markers
+
+markers <- Seurat::FindAllMarkers(object = sc.combined.sct, 
+                                          assay = "SCT",
+                                          slot = "data",
+                                          verbose = TRUE, 
+                                          only.pos = TRUE)
+
+saveRDS(markers, "./results/combined_markers.rds")
+
+
+
+
+
