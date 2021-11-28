@@ -22,4 +22,24 @@ SpatialDimPlot(object = integrated ,group.by = c("ident"), pt.size.factor = 80)
 dev.off()
 
 
+####Some FB genes
 
+Aspn <- SpatialFeaturePlot(integrated, 
+                            features = c("Aspn"),
+                            alpha = 0.6,
+                            pt.size.factor = 80, 
+                            combine = FALSE)
+fix.sc.Aspn<- scale_fill_continuous(limits = c(0,10), breaks = c(0,10), type ="viridis")
+Aspn. <- lapply(Aspn, function (x) x + fix.sc.Aspn)
+
+pdf(file.path("./results/genes",filename = "Aspn.pdf"))
+CombinePlots(Aspn.)
+dev.off()
+
+pdf(file.path("./results/genes",filename = "prueba.pdf"))
+SpatialFeaturePlot(integrated, 
+                   features = c("Aspn"),
+                   alpha = 0.6,
+                   pt.size.factor = 80, 
+                   combine = FALSE)
+dev.off()
