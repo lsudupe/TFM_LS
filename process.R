@@ -12,7 +12,7 @@ combined <- readRDS("./objects/processed/sp.combined.rds")
 ###Integration
 ###https://satijalab.org/seurat/articles/integration_introduction.html#performing-integration-on-datasets-normalized-with-sctransform-1
 list <- SplitObject(combined, split.by = "sample")
-list <- lapply(X = list, FUN = SCTransform, assay="SCT")
+list <- lapply(X = list, FUN = SCTransform, assay="Spatial")
 features <- SelectIntegrationFeatures(object.list = list, nfeatures = 3000)
 list <- PrepSCTIntegration(object.list = list, anchor.features = features)
 
@@ -46,6 +46,15 @@ markers <- Seurat::FindAllMarkers(object = integrated,
 saveRDS(markers, "./results/integrated_markers.rds")
 
 
+##############################################################3
 
+combined <- readRDS("./objects/processed/sp.combined.rds")
+combined <- SCTransform(combined, assay = "Spatial", verbose = FALSE)
 
+DefaultAssay(combined) <- "SCT"
+combined <- RunPCA(combined,npcs = 30, verbose = FALSE) %>%
+  RunUMAP(reduction = "pca", dims = 1:30, verbose = FALSE)%>%
+  FindNeighbors(reduction = "pca", dims = 1:30) %>%
+  FindClusters(resolution = 0.4)
 
+saveRDS(combined, "./objects/processed/combined.sct.rds")
