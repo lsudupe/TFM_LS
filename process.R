@@ -27,8 +27,7 @@ integrated <- readRDS("./objects/processed/integrated.rds")
 
 ###Transformation
 
-integrated <- SCTransform(integrated, assay = "Spatial",verbose = FALSE) %>%
-  RunPCA(assay = "SCT",npcs = 30, verbose = FALSE) %>%
+integrated <- RunPCA(integrated, assay = "integrated",npcs = 30, verbose = FALSE) %>%
   RunUMAP(reduction = "pca", dims = 1:30, verbose = FALSE)%>%
   FindNeighbors(reduction = "pca", dims = 1:30) %>%
   FindClusters(resolution = 0.4)
@@ -39,7 +38,7 @@ saveRDS(integrated, "./objects/processed/integrated.sct.rds")
 ###Markers
 
 markers <- Seurat::FindAllMarkers(object = integrated, 
-                                          assay = "SCT",
+                                          assay = "integrated",
                                           slot = "data",
                                           verbose = TRUE, 
                                           only.pos = TRUE)
