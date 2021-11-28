@@ -10,3 +10,5 @@ library(tidyverse) ## ubiquitous - data manipulatation toolkit
 library(Matrix) ## read in a .mtx file
 library(data.table)
 library(dplyr)
+library(wesanderson)
+library(viridis)
