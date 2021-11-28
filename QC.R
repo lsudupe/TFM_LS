@@ -110,36 +110,47 @@ saveRDS(day1.1, file = "./objects/processed/day1.rds")
 saveRDS(day7.1, file = "./objects/processed/day7.rds")
 saveRDS(sp.combined, file = "./objects/processed/sp.combined.rds")
 
+combined <- readRDS("./objects/processed/sp.combined.rds")
 
 ##############SPATIAL QC
-pdf(file.path("./results/QC",filename = "mito violin.pdf"))
-SpatialPlot(object = sp.combined, 
-            features = c("percent_mito"), 
-            alpha = 0.6,
-            pt.size.factor = 80,
-            min.cutoff = 0,
-            max.cutoff = 100,
-            repel = TRUE)
+
+##mito percentage
+mito <- SpatialFeaturePlot(combined, 
+                         features = c("percent_mito"),
+                         alpha = 0.6,
+                         pt.size.factor = 80, 
+                         combine = FALSE)
+fix.sc.mito <- scale_fill_continuous(limits = c(0.0,75.0), breaks = c(0.0, 35.0, 75.0), type ="viridis")
+mito. <- lapply(mito, function (x) x + fix.sc.mito)
+
+pdf(file.path("./results/QC",filename = "mito spatial.pdf"))
+CombinePlots(mito.)
 dev.off()
+
+##spatial features
+feature <- SpatialFeaturePlot(combined, 
+                           features = c("nFeature_Spatial"),
+                           alpha = 0.6,
+                           pt.size.factor = 80, 
+                           combine = FALSE)
+fix.sc.feature <- scale_fill_continuous(limits = c(0,9500), breaks = c(0,5000, 9500), type ="viridis")
+feature. <- lapply(feature, function (x) x + fix.sc.feature)
 
 pdf(file.path("./results/QC",filename = "nfeature_combined.pdf"))
-SpatialPlot(object = sp.combined, 
-            features = c("nFeature_Spatial"), 
-            alpha = 0.6,
-            pt.size.factor = 80,
-            min.cutoff = 1000,
-            max.cutoff = 8000,
-            repel = TRUE)
+CombinePlots(feature.)
 dev.off()
 
+##spatial count
+count <- SpatialFeaturePlot(combined, 
+                              features = c("nCount_Spatial"),
+                              alpha = 0.6,
+                              pt.size.factor = 80, 
+                              combine = FALSE)
+fix.sc.count <- scale_fill_continuous(limits = c(0,90000), breaks = c(0,50000, 90000), type ="viridis")
+count. <- lapply(count, function (x) x + fix.sc.count)
+
 pdf(file.path("./results/QC",filename = "nCount_combined.pdf"))
-SpatialPlot(object = sp.combined, 
-            features = c("nCount_Spatial"),
-            alpha = 0.6,
-            pt.size.factor = 80,
-            min.cutoff = 5000,
-            max.cutoff = 80000,
-            repel = TRUE)
+CombinePlots(count.)
 dev.off()
 
 
