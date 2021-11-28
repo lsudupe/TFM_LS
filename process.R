@@ -17,3 +17,5 @@ sc.combined.sct <- SCTransform(combined, assay = "Spatial",verbose = FALSE) %>%
   RunUMAP(reduction = "pca", dims = 1:30, verbose = FALSE)%>%
   FindNeighbors(reduction = "pca", dims = 1:30) %>%
   FindClusters(resolution = 0.4)
+
+saveRDS(combined, "./objects/processed/sp.combined.sct.rds")
