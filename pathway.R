@@ -45,15 +45,20 @@ head(max_difference)
 
 ##PLOTING THE RESULTS
 #1
+pdf(file.path("./results/pathway",filename = "1.pdf"))
 plot_gsva_pathway(gsva_result, pathway_id = rownames(max_difference)[1])
+dev.off()
 
 
 #2
 # Additional parameters are directly passed to gplots heatmap.2 function
+pdf(file.path("./results/pathway",filename = "2.pdf"))
 plot_gsva_heatmap(gsva_result, max_pathways = 15, margins = c(6,20))
+dev.off()
 
 ## limit to selected B cell related pathways
 relevant_pathways <- c("R-HSA-2393930", "R-HSA-141333", "R-HSA-8964041")
+pdf(file.path("./results/pathway",filename = "3.pdf"))
 plot_gsva_heatmap(gsva_result, 
                   pathway_ids = relevant_pathways, # limit to these pathways
                   margins = c(6,30), # adapt the figure margins in heatmap.2
@@ -61,5 +66,8 @@ plot_gsva_heatmap(gsva_result,
                   scale = "row", # scale for each pathway
                   key = FALSE, # don't display the color key
                   lwid=c(0.1,4)) # remove the white space on the left
+dev.off()
 
+pdf(file.path("./results/pathway",filename = "4.pdf"))
 plot_gsva_pca(gsva_result)
+dev.off()
