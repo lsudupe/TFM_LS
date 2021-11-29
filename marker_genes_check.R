@@ -110,3 +110,22 @@ pdf(file.path("./results/genes/marker_genes_check",filename ="Granulocytes featu
 FeaturePlot(a, features = granulocytes)
 dev.off()
 
+###################################################3
+
+###Plot and save spatialplot
+
+###################################################3
+
+FB <- SpatialFeaturePlot(a, 
+                           features = fibroblast,
+                           alpha = 0.6,
+                           pt.size.factor = 80, 
+                           combine = FALSE)
+fix.sc.FB<- scale_fill_continuous(limits = c(0,10), breaks = c(0,10), type ="viridis")
+FB. <- lapply(FB, function (x) x + fix.sc.FB)
+
+pdf(file.path("./results/genes/marker_genes_check/spatial",filename = "FB.pdf"))
+CombinePlots(FB.)
+dev.off()
+
+
