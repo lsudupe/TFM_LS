@@ -9,6 +9,20 @@ source("packages.R")
 
 combined <- readRDS("./objects/processed/sp.combined.rds")
 
+#####MERGE ONLY
+
+combined <- readRDS("./objects/processed/sp.combined.rds")
+combined <- SCTransform(combined, assay = "Spatial", verbose = FALSE)
+
+DefaultAssay(combined) <- "SCT"
+combined <- RunPCA(combined,npcs = 30, verbose = FALSE) %>%
+  RunUMAP(reduction = "pca", dims = 1:30, verbose = FALSE)%>%
+  FindNeighbors(reduction = "pca", dims = 1:30) %>%
+  FindClusters(resolution = 0.4)
+
+saveRDS(combined, "./objects/processed/combined.sct.rds")
+
+
 ###Integration
 ###https://satijalab.org/seurat/articles/integration_introduction.html#performing-integration-on-datasets-normalized-with-sctransform-1
 list <- SplitObject(combined, split.by = "sample")
@@ -34,7 +48,6 @@ integrated <- RunPCA(integrated, assay = "integrated",npcs = 30, verbose = FALSE
 
 saveRDS(integrated, "./objects/processed/integrated.sct.rds")
 
-
 ###Markers
 
 markers <- Seurat::FindAllMarkers(object = integrated, 
@@ -46,15 +59,3 @@ markers <- Seurat::FindAllMarkers(object = integrated,
 saveRDS(markers, "./results/integrated_markers.rds")
 
 
-##############################################################3
-
-combined <- readRDS("./objects/processed/sp.combined.rds")
-combined <- SCTransform(combined, assay = "Spatial", verbose = FALSE)
-
-DefaultAssay(combined) <- "SCT"
-combined <- RunPCA(combined,npcs = 30, verbose = FALSE) %>%
-  RunUMAP(reduction = "pca", dims = 1:30, verbose = FALSE)%>%
-  FindNeighbors(reduction = "pca", dims = 1:30) %>%
-  FindClusters(resolution = 0.4)
-
-saveRDS(combined, "./objects/processed/combined.sct.rds")
