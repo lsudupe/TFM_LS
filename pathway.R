@@ -2,13 +2,14 @@
 
 ## 29.11.21 Laura Sudupe , git @lsudupe
 # https://bioconductor.org/packages/release/bioc/vignettes/ReactomeGSA/inst/doc/analysing-scRNAseq.html
+#https://yulab-smu.top/biomedical-knowledge-mining-book/reactomepa.html
 
 #Libraries-------------------------------------------------
 source("packages.R")
 
 ###Read data
-integrated <- readRDS("./objects/processed/integrated.sct.rds")
-de <- readRDS("./results/integrated_markers.rds")
+integrated <- readRDS("./objects/processed/integrated.label.rds")
+de <- readRDS("./results/integrated_label_markers.rds")
 
 
 top5 <- de %>% group_by(cluster) %>% top_n(5, avg_log2FC) 
@@ -42,11 +43,10 @@ max_difference <- max_difference[order(max_difference$diff, decreasing = T), ]
 
 head(max_difference)
 
-
 ##PLOTING THE RESULTS
 #1
 pdf(file.path("./results/pathway",filename = "1.pdf"))
-plot_gsva_pathway(gsva_result, pathway_id = rownames(max_difference)[1])
+plot_gsva_pathway(gsva_result,pathway_id = rownames(max_difference)[1])
 dev.off()
 
 
