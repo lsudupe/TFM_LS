@@ -13,8 +13,8 @@ combined <- readRDS("./objects/processed/combined.sct.rds")
 
 ###Plots
 
-pdf(file.path("./results/clusters",filename = "umap_r0.4_combined.pdf"))
-DimPlot(combined, group.by = c("seurat_clusters"), label = T) + ggtitle("UMAP_r0.4")
+pdf(file.path("./results/clusters",filename = "umap_r0.4_combined_ident.pdf"))
+DimPlot(combined, group.by = c("sample"), label = T) + ggtitle("UMAP_r0.4")
 dev.off()
 
 pdf(file.path("./results/clusters",filename = "spatial_integrated.pdf"))
