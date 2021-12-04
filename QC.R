@@ -84,7 +84,6 @@ sp.combined@meta.data %>%
   geom_density(alpha = 0.2) +
   theme_classic() +
   geom_vline(xintercept = 0.8)
-#QUE ES ESTO
 
 png(file.path("./results/QC",filename = "nCount violin.png"))
 VlnPlot(sp.combined, features = c("nCount_Spatial"),group.by = "sample", pt.size = 0.1, ncol = 2) + NoLegend()
