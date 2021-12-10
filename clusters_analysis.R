@@ -25,21 +25,25 @@ dev.off()
 ####Some FB genes
 
 Aspn <- SpatialFeaturePlot(integrated, 
-                            features = c("Aspn"),
+                            features = c("Pdgra"),
                             alpha = 0.6,
                             pt.size.factor = 80, 
                             combine = FALSE)
 fix.sc.Aspn<- scale_fill_continuous(limits = c(0,10), breaks = c(0,10), type ="viridis")
 Aspn. <- lapply(Aspn, function (x) x + fix.sc.Aspn)
 
-pdf(file.path("./results/genes",filename = "Aspn.pdf"))
+pdf(file.path("./results/genes",filename = "Pdgra.pdf"))
 CombinePlots(Aspn.)
 dev.off()
 
-pdf(file.path("./results/genes",filename = "prueba.pdf"))
+pdf(file.path("./results/genes",filename = "Ppp1r14a.pdf"))
 SpatialFeaturePlot(integrated, 
-                   features = c("Aspn"),
+                   features = c("Ppp1r14a"),
                    alpha = 0.6,
                    pt.size.factor = 80, 
                    combine = FALSE)
 dev.off()
+
+
+
+
