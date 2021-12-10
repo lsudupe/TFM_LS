@@ -22,7 +22,7 @@ SpatialDimPlot(object = integrated ,group.by = c("ident"), pt.size.factor = 80)
 dev.off()
 
 
-####Some FB genes
+#Check different genes
 
 Aspn <- SpatialFeaturePlot(integrated, 
                             features = c("Pdgra"),
