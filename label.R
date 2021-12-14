@@ -21,7 +21,7 @@ integrated.label <- RenameIdents(object = integrated, `0` = "CD",
 integrated.label$ident <- (integrated.label@active.ident)
 
 saveRDS(integrated.label, "./objects/processed/integrated.label.rds")
-
+integrated <- readRDS("./objects/processed/integrated.label.rds")
 
 #Plot 
 
